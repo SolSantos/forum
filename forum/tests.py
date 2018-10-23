@@ -44,30 +44,30 @@ class AnswersTestCase(TestCase):
 	fixtures = ['forum/fixtures/forum/test_db.json']
 
 	def setUp(self):
-		self.dani = User.objects.get(username="drmargarido")
+		self.user = User.objects.get(username="drmargarido")
 		self.sol = User.objects.get(username="Solange")
 		self.question = Question.objects.get(id=1)
 
 	def test_add_answer(self):
-		result = controller.add_answer(self.dani, self.question.id, "It was because of the error 20323!")
+		result = controller.add_answer(self.user, self.question.id, "It was because of the error 20323!")
 		self.assertTrue(result >= 0)
 
 	def test_invalid_add_answer(self):
-		result = controller.add_answer(self.dani, None, "It was because of the error 20323!")
+		result = controller.add_answer(self.user, None, "It was because of the error 20323!")
 		self.assertEquals(result, -1)
 
 	def test_edit_answer(self):
-		result = controller.edit_answer(self.dani, 1, "New Description achieved")
+		result = controller.edit_answer(self.user, 1, "New Description achieved")
 		self.assertEquals(result, 0)
 		self.assertEquals(Answer.objects.get(id=1).description, "New Description achieved")
 
 	def test_invalid_edit_answer(self):
-		result = controller.edit_answer(self.dani, 1, "")
+		result = controller.edit_answer(self.user, 1, "")
 		self.assertEquals(result, -1)
 		self.assertNotEquals(Answer.objects.get(id=1).description, "New Description achieved")
 
 	def test_remove_answer(self):
-		result = controller.remove_answer(self.dani, 1)
+		result = controller.remove_answer(self.user, 1)
 		self.assertEquals(result, 0)
 
 	def test_remove_answer_without_permission(self):

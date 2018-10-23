@@ -120,13 +120,50 @@ def remove_answer(author, answer_id=None):
 	return 0
 
 
+
+def cancel_vote(author, answer_id=None):
+	if answer_id is None:
+		return -1
+
+	try:
+		answer = Answer.objects.get(id=answer_id)
+	except Answer.DoesNotExist as e:
+		return -2
+
+	if author in answer.positive_votes.all():
+		answer.positive_votes.remove(author)
+
+	if author in answer.negative_votes.all():
+		answer.negative_votes.remove(author)
+
+	return 0
+
+
 def upvote_answer(author, answer_id=None):
+	if answer_id is None:
+		return -1
+
+	try:
+		answer = Answer.objects.get(id=answer_id)
+	except Answer.DoesNotExist as e:
+		return -2
+
+	cancel_vote(author, answer_id)
+	answer.positive_votes.add(author)
+	answer.save()
 	return 0
 
 
 def downvote_answer(author, answer_id=None):
-	return 0
+	if answer_id is None:
+		return -1
 
+	try:
+		answer = Answer.objects.get(id=answer_id)
+	except Answer.DoesNotExist as e:
+		return -2
 
-def cancel_vote(author, answer_id=None):
+	cancel_vote(author, answer_id)
+	answer.negative_votes.add(author)
+	answer.save()
 	return 0

@@ -50,3 +50,80 @@ def add_question(request):
 		return JsonResponse({"status": 404, "description": "Unknown Error"})
 
 	return JsonResponse({"status": 200})
+
+
+@login_required
+def remove_question(request):
+	if not request.POST:
+		return JsonResponse({"status": 404, "description": "Verb not supported"})
+
+	question_id = request.POST.get("question_id", None)
+
+	result = controller.remove_question(request.user, question_id)
+	
+	if result == -1:
+		return JsonResponse({"status": 400, "description": "Missing mandatory fields"})
+	elif result == -2:
+		return JsonResponse({"status": 400, "description": "Received Question is invalid"})
+	elif result == -3:
+		return JsonResponse({"status": 400, "description": "You are not the owner of the question to manage it"})
+
+	return JsonResponse({"status": 200})
+
+
+@login_required
+def add_answer(request):
+	if not request.POST:
+		return JsonResponse({"status": 404, "description": "Verb not supported"})
+	
+	question_id = request.POST.get("question_id", None)
+	description = request.POST.get("description", "")
+
+	result = controller.add_answer(request.user, question_id, description)
+	
+	if result == -1:
+		return JsonResponse({"status": 400, "description": "Missing mandatory fields"})
+	elif result == -2:
+		return JsonResponse({"status": 404, "description": "Received Question is invalid"})
+
+	return JsonResponse({"status": 200})
+
+
+
+@login_required
+def edit_answer(request):
+	if not request.POST:
+		return JsonResponse({"status": 404, "description": "Verb not supported"})
+	
+	answer_id = request.POST.get("answer_id", None)
+	description = request.POST.get("description", "")
+
+	result = controller.add_answer(request.user, answer_id, description)
+	
+	if result == -1:
+		return JsonResponse({"status": 400, "description": "Missing mandatory fields"})
+	elif result == -2:
+		return JsonResponse({"status": 404, "description": "Received Answer is invalid"})
+	elif result == -3:
+		return JsonResponse({"status": 400, "description": "You are not the owner of the answer to manage it"})
+
+	return JsonResponse({"status": 200})
+
+
+@login_required
+def remove_answer(request):
+	if not request.POST:
+		return JsonResponse({"status": 404, "description": "Verb not supported"})
+
+	answer_id = request.POST.get("answer_id", None)
+
+	result = controller.remove_question(request.user, answer_id)
+	
+	if result == -1:
+		return JsonResponse({"status": 400, "description": "Missing mandatory fields"})
+	elif result == -2:
+		return JsonResponse({"status": 400, "description": "Received Answer is invalid"})
+	elif result == -3:
+		return JsonResponse({"status": 400, "description": "You are not the owner of the answer to manage it"})
+
+	return JsonResponse({"status": 200})

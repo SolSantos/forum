@@ -2,11 +2,12 @@ from django.test import TestCase
 from . import controller
 from django.contrib.auth.models import User
 from .models import Question
+from .models import Answer
 
 # Create your tests here.
 
 class QuestionsTestCase(TestCase):
-	fixtures = ['forum/fixtures/forum/initial_db.json']
+	fixtures = ['forum/fixtures/forum/test_db.json']
 
 	def setUp(self):
 		self.user = User.objects.get(username="drmargarido")
@@ -37,3 +38,38 @@ class QuestionsTestCase(TestCase):
 	def test_remove_invalid_question(self):
 		result = controller.remove_question(self.user, None)
 		self.assertEqual(result, -1)
+
+
+class AnswersTestCase(TestCase):
+	fixtures = ['forum/fixtures/forum/test_db.json']
+
+	def setUp(self):
+		self.dani = User.objects.get(username="drmargarido")
+		self.sol = User.objects.get(username="Solange")
+		self.question = Question.objects.get(id=1)
+
+	def test_add_answer(self):
+		result = controller.add_answer(self.dani, self.question.id, "It was because of the error 20323!")
+		self.assertTrue(result >= 0)
+
+	def test_invalid_add_answer(self):
+		result = controller.add_answer(self.dani, None, "It was because of the error 20323!")
+		self.assertEquals(result, -1)
+
+	def test_edit_answer(self):
+		result = controller.edit_answer(self.dani, 1, "New Description achieved")
+		self.assertEquals(result, 0)
+		self.assertEquals(Answer.objects.get(id=1).description, "New Description achieved")
+
+	def test_invalid_edit_answer(self):
+		result = controller.edit_answer(self.dani, 1, "")
+		self.assertEquals(result, -1)
+		self.assertNotEquals(Answer.objects.get(id=1).description, "New Description achieved")
+
+	def test_remove_answer(self):
+		result = controller.remove_answer(self.dani, 1)
+		self.assertEquals(result, 0)
+
+	def test_remove_answer_without_permission(self):
+		result = controller.remove_answer(self.sol, 1)
+		self.assertEquals(result, -3)

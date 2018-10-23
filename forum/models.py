@@ -155,5 +155,5 @@ class Answer(models.Model):
 			"description": self.description,
 			"author": self.author.username,
 			"created_at": str(self.created_at),
-			"votes": self.positive_votes.all().Count() - self.negative_votes.all().Count()
+			"votes": self.positive_votes.all().count() - self.negative_votes.all().count()
 		}

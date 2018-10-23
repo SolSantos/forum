@@ -1,4 +1,4 @@
-from .models import Course, Forum, Question
+from .models import Course, Forum, Question, Topic
 
 def get_courses():
 	return [course.get_tree() for course in Course.objects.all()]
@@ -21,14 +21,56 @@ def add_question(author, topic_id=None, forum_id=None, description=""):
 
 	question = None
 	if topic_id:
-		topic = Topic.objects.get(id=topic_id)
+		try:
+			topic = Topic.objects.get(id=topic_id)
+		except Topic.DoesNotExist as e:
+			return -2
+
 		question = Question(forum=topic.forum, topic=topic, description=description, author=author)
 	elif forum_id:
-		forum = Forum.objects.get(id=forum_id)
+		try:
+			forum = Forum.objects.get(id=forum_id)
+		except Forum.DoesNotExist as e:
+			return -2
+
 		question = Question(forum=forum, description=description, author=author)
 
 	if question is None:
-		return -2
+		return -3
 
 	question.save()
+	return question.id
+
+def remove_question(author, question_id=None):
+	if question_id is None:
+		return -1
+
+	try:
+		question = Question.objects.get(id=question_id)
+	except Question.DoesNotExist as e:
+		return -2
+
+	if question.author != author:
+		return -3
+
+	question.delete()
+	return 0
+
+
+def add_answer(author, question_id=None, description=""):
+	return 0
+
+def edit_answer(author, question_id=None, answer_id=None, description=""):
+	return 0
+
+def remove_answer(author, question_id=None, answer_id=None):
+	return 0
+
+def upvote_answer(author, answer_id=None):
+	return 0
+
+def downvote_answer(author, answer_id=None):
+	return 0
+
+def cancel_vote(author, answer_id=None):
 	return 0

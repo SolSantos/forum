@@ -47,6 +47,7 @@ class AnswersTestCase(TestCase):
 		self.user = User.objects.get(username="drmargarido")
 		self.sol = User.objects.get(username="Solange")
 		self.question = Question.objects.get(id=1)
+		self.answer = self.question.answer_set.all()[0]
 
 	def test_add_answer(self):
 		result = controller.add_answer(self.user, self.question.id, "It was because of the error 20323!")
@@ -73,3 +74,43 @@ class AnswersTestCase(TestCase):
 	def test_remove_answer_without_permission(self):
 		result = controller.remove_answer(self.sol, 1)
 		self.assertEquals(result, -3)
+
+	def test_upvote(self):
+		result = controller.upvote_answer(self.user, self.answer.id)
+		self.assertEquals(result ,0)
+		
+		result = controller.upvote_answer(self.sol, self.answer.id)
+		self.assertEquals(result, 0)
+		self.assertEquals(self.answer.get_total_votes(), 2)
+
+	def test_downvote(self):
+		result = controller.downvote_answer(self.user, self.answer.id)
+		self.assertEquals(result ,0)
+		
+		result = controller.downvote_answer(self.sol, self.answer.id)
+		self.assertEquals(result, 0)
+		self.assertEquals(self.answer.get_total_votes(), -2)
+
+	def test_cancel_vote(self):
+		result = controller.upvote_answer(self.user, self.answer.id)
+		self.assertEquals(result ,0)
+		self.assertEquals(self.answer.get_total_votes(), 1)
+
+		result = controller.cancel_vote(self.user, self.answer.id)
+		self.assertEquals(result ,0)
+		self.assertEquals(self.answer.get_total_votes(), 0)
+
+	def test_multiple_votes(self):
+		result = controller.upvote_answer(self.user, self.answer.id)
+		self.assertEquals(result ,0)
+		
+		result = controller.upvote_answer(self.user, self.answer.id)
+		self.assertEquals(result ,0)
+		
+		result = controller.downvote_answer(self.sol, self.answer.id)
+		self.assertEquals(result, 0)
+		self.assertEquals(self.answer.get_total_votes(), 0)
+
+		result = controller.upvote_answer(self.sol, self.answer.id)
+		self.assertEquals(result, 0)
+		self.assertEquals(self.answer.get_total_votes(), 2)

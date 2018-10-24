@@ -149,11 +149,14 @@ class Answer(models.Model):
 	def __str__(self):
 		return self.description
 
+	def get_total_votes(self):
+		return self.positive_votes.all().count() - self.negative_votes.all().count()
+
 	def as_json(self):
 		return {
 			"id": self.id,
 			"description": self.description,
 			"author": self.author.username,
 			"created_at": str(self.created_at),
-			"votes": self.positive_votes.all().count() - self.negative_votes.all().count()
+			"votes": self.get_total_votes()
 		}

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from forum.helpers import get_date_for_display
 
 
 # Create your models here.
@@ -16,11 +17,11 @@ class Course(models.Model):
         semesters = []
 
         for semester in self.semester_set.all():
-            current_semester = semester.as_json()
+            current_semester = semester.as_dict()
 
             forums = []
             for forum in semester.forum_set.all():
-                forums.append(forum.as_json())
+                forums.append(forum.as_dict())
 
             current_semester["forums"] = forums
             semesters.append(current_semester)
@@ -42,7 +43,7 @@ class Semester(models.Model):
     def __str__(self):
         return str(self.course) + " " + str(self.year) + "º year, " + str(self.semester) + "º semester"
 
-    def as_json(self):
+    def as_dict(self):
         return {
             "id": self.id,
             "year": self.year,
@@ -65,7 +66,7 @@ class Forum(models.Model):
     def __str__(self):
         return self.name
 
-    def as_json(self):
+    def as_dict(self):
         return {
             "id": self.id,
             "name": self.name,
@@ -75,7 +76,7 @@ class Forum(models.Model):
         }
 
     def get_tree(self):
-        forum_tree = self.as_json()
+        forum_tree = self.as_dict()
 
         if self.type == "O":
             forum_tree["topics"] = [topic.get_tree() for topic in self.topic_set.all()]
@@ -93,7 +94,7 @@ class Topic(models.Model):
     def __str__(self):
         return self.name
 
-    def as_json(self):
+    def as_dict(self):
         return {
             "id": self.id,
             "name": self.name,
@@ -101,7 +102,7 @@ class Topic(models.Model):
         }
 
     def get_tree(self):
-        topic_tree = self.as_json()
+        topic_tree = self.as_dict()
         topic_tree["questions"] = [question.get_tree() for question in self.question_set.all()]
         return topic_tree
 
@@ -114,20 +115,33 @@ class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-created_at']
+
     def __str__(self):
         return self.title
 
-    def as_json(self):
-        return {
+    def as_dict(self):
+        question_dict = {
             "id": self.id,
+            "title": self.title,
             "description": self.description,
             "author": self.author.username,
-            "created_at": str(self.created_at)
+            "created_at": self.created_at,
+            "date_for_display": get_date_for_display(self.created_at)
         }
 
+        if self.forum.type == "S":
+            question_dict["topic"] = self.forum.semester.course.name
+            question_dict["subtopic"] = self.forum.name
+        else:
+            question_dict["topic"] = self.topic.name
+
+        return question_dict
+
     def get_tree(self):
-        question_tree = self.as_json()
-        question_tree["answers"] = [answer.as_json() for answer in self.answer_set.all()]
+        question_tree = self.as_dict()
+        question_tree["answers"] = [answer.as_dict() for answer in self.answer_set.all()]
         return question_tree
 
     def save(self, *args, **kwargs):
@@ -153,7 +167,7 @@ class Answer(models.Model):
     def get_total_votes(self):
         return self.positive_votes.all().count() - self.negative_votes.all().count()
 
-    def as_json(self):
+    def as_dict(self):
         return {
             "id": self.id,
             "description": self.description,

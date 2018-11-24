@@ -26,7 +26,7 @@
             <div class="questionBox">
                 <h3 class="qTitulo">{{ question.title }}</h3>
                 <p class="qDescricao">{{ question.description }}</p>
-                <p class="qData">25 Novembro</p>
+                <p class="qData">{{ question.date_for_display }}</p>
                 <p class="qTopico">{{ question.topic }}</p><br>
                 {% if question.subtopic %}
                     <p class="qSubtopico">{{ question.subtopic }}</p>

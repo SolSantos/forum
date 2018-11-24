@@ -11,7 +11,7 @@ def welcome_page(request, filter_type=0):
     if request.user.is_authenticated:
         render_state = {
             "selected_item": filter_type,
-            "filtering_state": get_filtering_state(filter_type)
+            "filtering_state": get_filtering_state(filter_type, request.user)
         }
 
         questions = get_questions(render_state["filtering_state"])

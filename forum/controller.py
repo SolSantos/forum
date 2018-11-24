@@ -3,7 +3,7 @@ from .models import Forum
 from .models import Question
 from .models import Topic
 from .models import Answer
-
+from .models import Profile
 
 filter_by_selected_menu = {
 	0: None,
@@ -40,8 +40,14 @@ filter_by_selected_menu = {
 }
 
 
-def get_filtering_state(selected_menu):
-	return filter_by_selected_menu[selected_menu]
+def get_filtering_state(selected_menu, user=None):
+	filtering_state = filter_by_selected_menu[selected_menu]
+	if selected_menu == 1:
+		try:
+			filtering_state["topic"] = Profile.objects.get(user=user).course.name
+		except Profile.DoesNotExist:
+			pass
+	return filtering_state
 
 
 def get_courses():

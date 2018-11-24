@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from forum.helpers import get_date_for_display
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 # Create your models here.
@@ -32,6 +34,17 @@ class Course(models.Model):
             "created_at": str(self.created_at),
             "semesters": semesters
         }
+
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, null=False, blank=False, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, null=True, blank=True, on_delete=models.DO_NOTHING)
+
+
+@receiver(post_save, sender=User)
+def register_user_profile(sender, instance, **kwargs):
+    if not Profile.objects.filter(user=instance).exists():
+        Profile.objects.create(user=instance)
 
 
 class Semester(models.Model):

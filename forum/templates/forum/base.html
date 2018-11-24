@@ -20,7 +20,7 @@
 </head>
 <body>
     <header>
-        <a href="/templates/forum/index.html" id="home"><img alt="logo" id="logo" src="/static/forum/images/logo_head_small.svg"/></a>
+        <a href="/" id="home"><img alt="logo" id="logo" src="/static/forum/images/logo_head_small.svg"/></a>
         <input type="text" id="barraPesquisa" name="pesquisa" placeholder="Pesquisa">
         <div id="right">
             <a href="" class="minhas">As minhas<br>perguntas</a>
@@ -33,15 +33,15 @@
         <img alt="Universidade de Coimbra" id="UC" src="/static/forum/images/universidade_coimbra.svg"/>
     </section>
     <section id="menuTopicos">
-        <a href="/templates/forum/index.html" id="topicoGeral" class="topico">Geral</a>
+        <a href="/" {% if render_state.selected_item == 0 %} id="topicoGeral" {% endif %} class="topico">Geral</a>
         <div class="separador"></div>
-        <a href="" class="topico">Curso</a>
+        <a href="/1/" {% if render_state.selected_item == 1 %} id="topicoGeral" {% endif %} class="topico">Curso</a>
         <div class="separador"></div>
-        <a href="" class="topico">SASUC</a>
-        <a href="" class="topico">DEI</a>
-        <a href="" class="topico">Praxe</a>
-        <a href="" class="topico">Erasmus</a>
-        <a href="" class="topico">AAC</a>
+        <a href="/2/" {% if render_state.selected_item == 2 %} id="topicoGeral" {% endif %} class="topico">SASUC</a>
+        <a href="/3/" {% if render_state.selected_item == 3 %} id="topicoGeral" {% endif %} class="topico">DEI</a>
+        <a href="/4/" {% if render_state.selected_item == 4 %} id="topicoGeral" {% endif %} class="topico">Praxe</a>
+        <a href="/5/" {% if render_state.selected_item == 5 %} id="topicoGeral" {% endif %} class="topico">Erasmus</a>
+        <a href="/6/" {% if render_state.selected_item == 6 %} id="topicoGeral" {% endif %} class="topico">AAC</a>
     </section>
     {% block content %}
     {% endblock %}

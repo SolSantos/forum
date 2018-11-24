@@ -3,12 +3,22 @@ from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 from forum.models import Question
+from forum.controller import get_questions
+from forum.controller import get_filtering_state
 
 
-def welcome_page(request):
+def welcome_page(request, filter_type=0):
     if request.user.is_authenticated:
-        questions = [question.as_dict() for question in Question.objects.all()]
-        return render(request, "forum/index.html", {"questions": questions})
+        render_state = {
+            "selected_item": filter_type,
+            "filtering_state": get_filtering_state(filter_type)
+        }
+
+        questions = get_questions(render_state["filtering_state"])
+        return render(request, "forum/index.html", {
+            "questions": questions,
+            "render_state": render_state
+        })
     else:
         return render(request, "forum/login.html")
 
@@ -20,7 +30,7 @@ def do_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-    
+
     return redirect("/")
 
 

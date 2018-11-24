@@ -4,6 +4,46 @@ from .models import Question
 from .models import Topic
 from .models import Answer
 
+
+filter_by_selected_menu = {
+	0: None,
+	1: {
+		"option": "S",
+		"topic": "Licenciatura em Engenharia Informática",
+		"subtopic": ""
+	},
+	2: {
+		"option": "O",
+		"topic": "SASUC",
+		"subtopic": ""
+	},
+	3: {
+		"option": "O",
+		"topic": "DEI",
+		"subtopic": ""
+	},
+	4: {
+		"option": "O",
+		"topic": "Praxe",
+		"subtopic": ""
+	},
+	5: {
+		"option": "O",
+		"topic": "Erasmus",
+		"subtopic": ""
+	},
+	6: {
+		"option": "O",
+		"topic": "AAC",
+		"subtopic": ""
+	}
+}
+
+
+def get_filtering_state(selected_menu):
+	return filter_by_selected_menu[selected_menu]
+
+
 def get_courses():
 	return [course.get_tree() for course in Course.objects.all()]
 
@@ -18,6 +58,28 @@ def get_forum(forum_id):
 
 def get_question(question_id):
 	return Question.objects.get(id=question_id).get_tree()
+
+
+def get_questions(filtering_state=None):
+	questions = []
+
+	if filtering_state:
+		if filtering_state["option"] and filtering_state["option"] != "":
+			if filtering_state["option"] == "O":
+				questions = Question.objects.filter(
+					forum__type=filtering_state["option"],
+					topic__name=filtering_state["topic"]
+				)
+			elif filtering_state["option"] == "S":
+				questions = Question.objects.filter(
+					forum__type=filtering_state["option"],
+					forum__semester__course__name=filtering_state["topic"]
+				)
+	else:
+		questions = Question.objects.all()
+
+	# get all questions
+	return [question.as_dict() for question in questions]
 
 
 def add_question(author, topic_id=None, forum_id=None, description=""):

@@ -1,3 +1,2 @@
 *.pyc
 */migrations/00*
-db.sqlite3

@@ -7,7 +7,8 @@ urlpatterns = [
 	path('', views.welcome_page, name='welcome_page'),
 	path('login/', views.do_login, name='login'),
 	path('logout/', views.do_logout, name='logout'),
-	
+	path('see_courses/', views.see_courses, name='see_courses'),
+
 	# Api
 	path('get_courses/', api.get_courses, name='get_courses'),
 	path('get_regular_forums/', api.get_regular_forums, name='get_regular_forums'),

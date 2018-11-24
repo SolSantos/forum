@@ -1,0 +1,41 @@
+{% extends "forum/base.html" %}
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="/static/forum/css/questions_page.css"/>
+    <link type="text/css" rel="stylesheet" href="/static/forum/css/index.css"/>
+{% endblock %}
+
+{% block content %}
+    <div id="mainBox" class="row">
+        <div id="mainSpace">
+        </div>
+        <main>
+            <div id="fazerPergunta">
+                <h3>Fazer uma pergunta</h3>
+                <img alt="fazer pergunta" id="abrirPergunta" src="/static/forum/images/more.png"/>
+                <div id="inputBox">
+                    <form>
+                        <input type="text" class="perguntaInput" name="pergunta" placeholder="Pergunta*">
+                        <input type="text" class="perguntaInput bigInput" name="descricao" placeholder="Descrição">
+                        <input type="text" class="perguntaInput marginInput" name="topico" placeholder="Tópico*">
+                        <input id="submit" type="submit" name="perguntar" value="Perguntar">
+                    </form>
+                </div>
+            </div>
+            {% for question in questions %}
+            <div class="questionBox">
+                <h3 class="qTitulo">{{ question.title }}</h3>
+                <p class="qDescricao">{{ question.description }}</p>
+                <p class="qData">25 Novembro</p>
+                <p class="qTopico">{{ question.topic }}</p><br>
+                {% if question.subtopic %}
+                    <p class="qSubtopico">{{ question.subtopic }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </main>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="/static/forum/js/perguntar.js"></script>
+{% endblock %}

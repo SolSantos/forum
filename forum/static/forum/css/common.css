@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0f0f0f+0,0f0f0f+97&0+0,1+97 */
+    background: -moz-linear-gradient(top, rgba(15,15,15,0) 0%, rgba(15,15,15,1) 97%), url("/static/forum/images/uc-backgroung.png"); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(15,15,15,0) 0%,rgba(15,15,15,1) 97%), url("/static/forum/images/uc-background.png"); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(15,15,15,0) 0%,rgba(15,15,15,1) 97%), url("/static/forum/images/uc-background.png"); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/*início header*/
+header {
+    position: fixed;
+    z-index: 4;
+    background-color: #3e21cc;
+    -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+    margin: 22px;
+    width: calc(100% - 44px);
+    min-width: 800px;
+    height: 90px;
+}
+
+header a {
+    float: left;
+}
+
+#home {
+    width: 76px;
+    min-width: 76px;
+    margin: 13px 30px;
+}
+
+#barraPesquisa{
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    background-size: 38px;
+    background: #5b42d4 url("/static/forum/images/search.svg") no-repeat 7px 0px;
+    padding-left: 52px;
+    padding-right: 16px;
+    height: 46px;
+    width: 38vw;
+    min-width: 340px;
+    margin: 22px 14px 22px 2px;
+    font-size: 16px;
+}
+
+#right {
+    float: right;
+    right: 0;
+}
+
+.minhas {
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    margin:26px 10px;
+    font-weight: 600;
+    font-size: 14px;
+    width: 10vw;
+    min-width: 88px;
+}
+
+header a:hover {
+    text-decoration: none;
+    color: white;
+    opacity: 0.65;
+}
+
+#conta {
+    width: 48px;
+    margin: 18px 30px 18px 1.6vw;
+}
+/*fim header*/
+
+/*início menu esquerdo*/
+#menuTopicos {
+    position: fixed;
+    z-index: 3;
+    max-width: 300px;
+    width: 25%;
+    min-width: 244px;
+    display: inline-grid;
+    margin-top: 150px;
+}
+
+.topico {
+    text-decoration: none;
+    text-align: center;
+    width: calc(100% - 80px);
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 6px 40px 6px 40px;
+    padding: 8px 0px;
+    border-radius: 50px;
+}
+
+.topico:hover {
+    text-decoration: none;
+    color: white;
+    background-color: #3e21cc;
+}
+
+.separador {
+    width: calc(100% - 80px);
+    margin: 4px 40px 4px 40px;
+    border-bottom: 3px dotted white;
+    opacity: 0.5;
+}
+
+#UCLogoBox {
+    z-index: 1;
+    top: 0;
+    position: fixed;
+    max-width: 300px;
+    width: 25%;
+    min-width: 244px;
+}
+
+#UCLogoSpace {
+    height: calc(93vh - 38px);
+    min-height: 536px;
+}
+
+#UC {
+    width: calc(100% - 100px);
+    margin: 30px 50px 4px 50px;
+}
+/*fim menu esquerdo*/
+
+
+@media screen and (min-width: 1600px) {
+    body {
+        font-size: 17px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    body {
+        font-size: 13px;
+    }
+}

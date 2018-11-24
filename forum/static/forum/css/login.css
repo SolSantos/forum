@@ -1,0 +1,108 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#0f0f0f+0,0f0f0f+97&0+0,1+97 */
+    background: -moz-linear-gradient(top, rgba(15,15,15,0) 0%, rgba(15,15,15,1) 97%), url("/static/forum/images/uc-backgroung.png"); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(15,15,15,0) 0%,rgba(15,15,15,1) 97%), url("/static/forum/images/uc-background.png"); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(15,15,15,0) 0%,rgba(15,15,15,1) 97%), url("/static/forum/images/uc-background.png"); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#loginArea {
+    width: 33.3%;
+}
+
+#loginBox {
+    background-color: white;
+    padding: 3.6vh calc(5% + 20px) 6.6vh calc(5% + 20px);
+    -webkit-box-shadow: 0px 3px 11px -2px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0px 3px 11px -2px rgba(0,0,0,0.4);
+    box-shadow: 0px 3px 11px -2px rgba(0,0,0,0.4);
+    z-index: 2;
+    margin-top: 8vh;
+}
+
+.loginInput {
+    border: 1px solid #3e21cc;
+    outline: none;
+    width: 100%;
+    padding: 12px 18px 12px 40px;
+    color: #3e21cc;
+    font-weight: 500;
+    margin: calc(3.2vh + 6px) 0px 0.6vh 0px;
+}
+
+#user {
+    background: url("/static/forum/images/account_color.svg") no-repeat 9px 13px;
+    background-size: 20px;
+}
+
+#password {
+    background: url("/static/forum/images/lock.svg") no-repeat 9px 13px;
+    background-size: 20px;
+}
+
+#loginBox form a{
+    color: #3e21cc;
+    font-size: 80%;
+}
+
+#submit {
+    border: none;
+    border-radius:50px;
+    background-color: #3e21cc;
+    padding: 12px 0px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-top: calc(2vh + 4px);
+    width: 100%;
+}
+
+#submit:hover {
+    background-color: #5b42d4;
+}
+
+#loginBox h4{
+    color: #3e21cc;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 6.5vh;
+    margin-bottom: calc(1.6vh + 3px);
+}
+
+#registar {
+    text-decoration: none;
+}
+
+#registar div{
+    text-decoration: none;
+    border: none;
+    border-radius:50px;
+    background-color: #7869e5;
+    padding: 12px 0px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    width: 100%;
+    text-align: center;
+}
+
+#registar div:hover {
+    background-color: #5b42d4;
+}
+
+#UC {
+    display: table;
+    padding: calc(3vh + 5px) 0;
+    margin-right: auto;
+    margin-left: auto;
+    width: 55%;
+}

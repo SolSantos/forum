@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="fórum, perguntas, respostas, universidade de coimbra">
+    <meta name="description" content="Fórum de perguntas da Universidade de Coimbra">
+    <meta name="author"  content="Solange Santos">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="/static/forum/images/logo_head_color.png"/>
+    {% block meta %}
+    <title>Pergunta UC</title>
+    {% endblock %}
+    <link type="text/css" rel="stylesheet" href="/static/forum/css/bootstrap.min.css"/>
+    <script src="/static/forum/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/forum/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/static/forum/css/common.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
+    {% block styles %}
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <a href="/templates/forum/index.html" id="home"><img alt="logo" id="logo" src="/static/forum/images/logo_head_small.svg"/></a>
+        <input type="text" id="barraPesquisa" name="pesquisa" placeholder="Pesquisa">
+        <div id="right">
+            <a href="" class="minhas">As minhas<br>perguntas</a>
+            <a href="" class="minhas">As minhas<br>respostas</a>
+            <a href=""  id="conta"><img alt="conta" src="/static/forum/images/account_white.svg"/></a>
+        </div>
+    </header>
+    <section id="UCLogoBox">
+        <div id="UCLogoSpace"></div>
+        <img alt="Universidade de Coimbra" id="UC" src="/static/forum/images/universidade_coimbra.svg"/>
+    </section>
+    <section id="menuTopicos">
+        <a href="/templates/forum/index.html" id="topicoGeral" class="topico">Geral</a>
+        <div class="separador"></div>
+        <a href="" class="topico">Curso</a>
+        <div class="separador"></div>
+        <a href="" class="topico">SASUC</a>
+        <a href="" class="topico">DEI</a>
+        <a href="" class="topico">Praxe</a>
+        <a href="" class="topico">Erasmus</a>
+        <a href="" class="topico">AAC</a>
+    </section>
+    {% block content %}
+    {% endblock %}
+    {% block scripts %}
+    {% endblock %}
+</body>
+</html>
+

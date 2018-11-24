@@ -1,15 +1,57 @@
-<h2>Login</h2>
-<form action="/login/" method="POST">
-	{% csrf_token %}
-	<div>
-		<label>Username</label>
-		<input type="text" name="username">
-	</div>
-	<div>
-		<label>Password</label>
-		<input type="password" name="password">
-	</div>
-	<div>
-		<input type="submit" name="submit" value="submit">
-	</div>
-</form>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="fórum, perguntas, respostas, universidade de coimbra">
+    <meta name="description" content="Fórum de perguntas da Universidade de Coimbra">
+    <meta name="author"  content="Solange Santos">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="/static/forum/images/logo_head_color.png"/>
+    <title>Pergunta UC</title>
+    <link type="text/css" rel="stylesheet" href="/static/forum/css/bootstrap.min.css"/>
+    <script src="/static/forum/js/jquery-3.1.1.min.js"></script>
+    <script src="/static/forum/js/bootstrap.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="/static/forum/css/login.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
+</head>
+<body>
+<div>
+    <div class="col-md-6">
+
+    </div>
+    <div class="col-md-6">
+        <section id="loginArea">
+            <div id="loginBox">
+                <form action="/login/" method="POST">
+                    {% csrf_token %}
+                    <input type="text" id="user" class="loginInput" name="username"  placeholder="Utilizador">
+                    <input type="password" id="password" class="loginInput" name="password"  placeholder="Palavra-passe">
+                    <a href="">Esqueceste-te da palavra-passe?</a>
+                    <input type="submit" id="submit" name="submit" value="ENTRAR">
+                </form>
+                <h4>Ainda não tens conta?</h4>
+                <a href=""  id="registar"><div>REGISTAR</div></a>
+            </div>
+            <img alt="Universidade de Coimbra" id="UC" src="/static/forum/images/universidade_coimbra.svg"/>
+        </section>
+    </div>
+</div>
+    <!--
+    <h2>Login</h2>
+    <form action="/login/" method="POST">
+
+        <div>
+            <label>Username</label>
+            <input type="text" name="username">
+        </div>
+        <div>
+            <label>Password</label>
+            <input type="password" name="password">
+        </div>
+        <div>
+            <input type="submit" name="submit" value="submit">
+        </div>
+
+    -->
+</body>
+</html>

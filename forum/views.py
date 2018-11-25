@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from forum.models import Question
 from forum.controller import get_questions
 from forum.controller import get_filtering_state
+from forum.controller import get_question
 
 
 def welcome_page(request, filter_type=0, search=""):
@@ -45,3 +46,10 @@ def do_logout(request):
 	if request.user.is_authenticated:
 		logout(request)
 		return redirect("/")
+
+
+def question_page(request, question_id):
+    question = Question.objects.get(id=question_id).as_dict()
+    return render(request, "forum/pergunta.html", {
+        "question": question,
+    })

@@ -22,7 +22,7 @@
                     <form method="POST" action="/create_question/">
                         {% csrf_token %}
                         <input type="text" class="perguntaInput" name="title" placeholder="Pergunta*" required>
-                        <input type="text" class="perguntaInput bigInput" name="description" placeholder="Descrição">
+                        <textarea class="perguntaInput bigInput" name="description" placeholder="Descrição"></textarea>
                         <select name="topic" class="perguntaInput marginInput" required>
                             <option value="" selected disabled hidden>Selecionar Tópico*</option>
                             {% for topic in topics %}
@@ -35,7 +35,7 @@
             </div>
             {% for question in questions %}
             <div class="questionBox">
-                <h3 class="qTitulo">{{ question.title }}</h3>
+                <a href="/pergunta/{{ question.id }}/"><h3 class="qTitulo">{{ question.title }}</h3></a>
                 <p class="qDescricao">{{ question.description }}</p>
                 <p class="qData">{{ question.date_for_display }}</p>
                 {% if render_state.selected_item != 1 %}

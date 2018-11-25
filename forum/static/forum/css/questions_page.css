@@ -109,6 +109,12 @@ main {
     border-bottom: 1px solid #999999;
 }
 
+.qTitulo:hover {
+    text-decoration: underline;
+    color: #3e21cc;
+    text-decoration-color: #3e21cc;
+}
+
 .qTitulo {
     color: #3e21cc;
     font-weight: 500;

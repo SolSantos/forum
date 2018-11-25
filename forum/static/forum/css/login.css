@@ -16,6 +16,11 @@ body {
     background-attachment: fixed;
 }
 
+#areaLeft {
+    height: 100vh;
+    overflow: hidden;
+}
+
 #apresentacao {
     margin-top: calc(8.5vh + 8px);
     white-space: nowrap;
@@ -49,37 +54,20 @@ body {
     margin-top: calc(10vh + 26px);
 }
 
-#qmBox1 {
+#qmBox {
     display: table;
     margin-right: auto;
     margin-left: auto;
 }
 
-#qmBox2 {
-    display: inline-flex;
+#qm {
+    width: 22vw;
+    opacity: 0.6;
 }
 
-#qm1 {
-    width: 6.7vw;
-    opacity: 0.6;
-    margin-top: 11%;
-}
-
-#qm2 {
-    width: 7.5vw;
-    opacity: 0.6;
-    margin-left: 8%;
-    margin-right: 8%;
-}
-
-#qm3 {
-    width: 6.7vw;
-    opacity: 0.6;
-    margin-top: 11%;
-}
 
 #logo {
-    width: 17vw;
+    width: 14vw;
     opacity: 0.6;
     display: table;
     margin-right: auto;
@@ -190,6 +178,14 @@ body {
     #logoSpace {
         display: none;
     }
+
+    #areaLeft {
+        height: auto;
+    }
+
+    #loginBox {
+        margin-top: calc(4vh + 8px);
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -197,7 +193,7 @@ body {
         font-size: 15px;
     }
 
-    #loginArea {
+    #presentationArea, #loginArea {
         min-width: 260px;
     }
 }
@@ -206,4 +202,13 @@ body {
     body {
         font-size: 14px;
     }
+
+    #apresentacao h1{
+        font-size: 9vw;
+    }
+
+    #apresentacao h2 {
+        font-size: 3.7vw;
+    }
+
 }

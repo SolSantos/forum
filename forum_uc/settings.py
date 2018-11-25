@@ -121,4 +121,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-locale.setlocale(locale.LC_TIME, "pt_PT")
+locale.setlocale(locale.LC_TIME, "Portuguese")

@@ -16,25 +16,21 @@
 </head>
 <body>
 <div>
-    <div class="col-md-6">
+    <div id="areaLeft" class="col-md-6">
         <section id="presentationArea">
             <div id="apresentacao">
                 <h1>Pergunta <span>UC</span></h1>
                 <h2>Esclarece todas as tuas dúvidas,<br>de aluno para aluno.</h2>
             </div>
             <div id="logoSpace">
-                <div id="qmBox1">
-                <div id="qmBox2">
-                    <img alt="question mark" id="qm1" src="/static/forum/images/question_mark1.svg"/>
-                    <img alt="question mark" id="qm2" src="/static/forum/images/question_mark2.svg"/>
-                    <img alt="question mark" id="qm3" src="/static/forum/images/question_mark3.svg"/>
+                <div id="qmBox">
+                    <img alt="question mark" id="qm" src="/static/forum/images/question_mark.svg"/>
                 </div>
-                    </div>
                 <img alt="Logo Pergunta UC" id="logo" src="/static/forum/images/logo_white.svg"/>
             </div>
         </section>
     </div>
-    <div class="col-md-6">
+    <div id="areaRight" class="col-md-6">
         <section id="loginArea">
             <div id="loginBox">
                 <form action="/login/" method="POST">
@@ -51,22 +47,6 @@
         </section>
     </div>
 </div>
-    <!--
-    <h2>Login</h2>
-    <form action="/login/" method="POST">
-
-        <div>
-            <label>Username</label>
-            <input type="text" name="username">
-        </div>
-        <div>
-            <label>Password</label>
-            <input type="password" name="password">
-        </div>
-        <div>
-            <input type="submit" name="submit" value="submit">
-        </div>
-
-    -->
+<script src="/static/forum/js/login.js"></script>
 </body>
 </html>

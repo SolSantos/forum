@@ -17,6 +17,8 @@ urlpatterns = [
 	path('upvote/<int:answer_id>/', views.upvote_answer, name='upvote_answer'),
 	path('downvote/<int:answer_id>/', views.downvote_answer, name='downvote_answer'),
 	path('cancelvote/<int:answer_id>/', views.cancel_vote_answer, name='cancel_vote_answer'),
+	path('delete_question/<int:question_id>/', views.delete_question, name='delete_question'),
+	path('delete_answer/<int:answer_id>/', views.delete_answer, name='delete_answer'),
 
 	# Api
 	path('get_courses/', api.get_courses, name='get_courses'),

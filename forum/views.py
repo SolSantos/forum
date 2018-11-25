@@ -16,6 +16,7 @@ from forum.controller import upvote_answer as controller_upvote_answer
 from forum.controller import downvote_answer as controller_downvote_answer
 from forum.controller import cancel_vote
 from forum.controller import remove_question
+from forum.controller import remove_answer
 
 
 def welcome_page(request, filter_type=0, search=""):
@@ -46,9 +47,17 @@ def my_questions_page(request):
 
 @login_required
 def my_answers_page(request):
-    questions = [question.as_dict() for question in Question.objects.filter(author=request.user)]
+    answers = [
+        {
+            "title": answer.question.title,
+            "question_id": answer.question.id,
+            **answer.as_dict(author=request.user)
+        }
+        for answer in Answer.objects.filter(author=request.user)
+    ]
+
     return render(request, "forum/minhas_respostas.html", {
-        "questions": questions,
+        "answers": answers,
     })
 
 
@@ -130,30 +139,37 @@ vote_action_strategy = {
 }
 
 
-def __apply_vote_answer_action(action, author, answer_id):
+def __apply_vote_answer_action(request, action, author, answer_id):
     vote_action_strategy[action](
         author=author,
         answer_id=answer_id
     )
-    answer = Answer.objects.get(id=answer_id)
-    return redirect("/pergunta/" + str(answer.question.id) + "/")
+
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
-def upvote_answer(request, answer_id):
-    return __apply_vote_answer_action("upvote", request.user, answer_id)
+def upvote_answer(request, answer_id=None):
+    return __apply_vote_answer_action(request, "upvote", request.user, answer_id)
 
 
 @login_required
-def downvote_answer(request, answer_id):
-    return __apply_vote_answer_action("downvote", request.user, answer_id)
+def downvote_answer(request, answer_id=None):
+    return __apply_vote_answer_action(request, "downvote", request.user, answer_id)
 
 
 @login_required
-def cancel_vote_answer(request, answer_id):
-    return __apply_vote_answer_action("cancel", request.user, answer_id)
+def cancel_vote_answer(request, answer_id=None):
+    return __apply_vote_answer_action(request, "cancel", request.user, answer_id)
 
 
 @login_required
-def delete_question(request, question_id):
+def delete_question(request, question_id=None):
     remove_question(author=request.user, question_id=question_id)
+    return redirect("/minhas_perguntas/")
+
+
+@login_required
+def delete_answer(request, answer_id=None):
+    remove_answer(author=request.user, answer_id=answer_id)
+    return redirect("/minhas_respostas/")

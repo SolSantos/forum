@@ -18,7 +18,7 @@
                 <a href="/pergunta/{{ question.id }}/"><h3 class="qTitulo">{{ question.title }}</h3></a>
                 <p class="qDescricao">{{ question.description }}</p>
                 <p class="qData">{{ question.date_for_display }}</p>
-                <img alt="eliminar" class="lixo" src="/static/forum/images/trash.svg"/>
+                <a href="/delete_question/{{ question.id }}/"><img alt="eliminar" class="lixo" src="/static/forum/images/trash.svg"/></a>
                 <p class="qTopico">{{ question.topic }}</p><br>
                 {% if question.subtopic %}
                     <p class="qSubtopico">{{ question.subtopic }}</p>

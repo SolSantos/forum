@@ -12,21 +12,17 @@
         <div id="mainSpace">
         </div>
         <main>
-            {% for question in questions %}
+            {% for answer in answers %}
             <div class="answerBox">
-                <a href="/pergunta/{{ question.id }}/"><h3 class="qTitulo">{{ question.title }}</h3></a>
-                <p class="aDescricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at
-                    porta lacus. Suspendisse imperdiet gravida nunc vel vestibulum. Morbi id urna eleifend,
-                    viverra sem ac, tempor ante. Etiam at risus posuere, porta justo quis, venenatis dolor.
-                    Proin quam nibh, sodales sed sapien sit amet, condimentum dapibus eros. Praesent eu nulla tristique,
-                    tincidunt dui eget, lacinia purus. Pellentesque eu laoreet ex.</p>
-                <p class="aData">26 Novembro</p>
-                <img alt="eliminar" class="lixo" src="/static/forum/images/trash.svg"/>
+                <a href="/pergunta/{{ answer.question_id }}/"><h3 class="qTitulo">{{ answer.title }}</h3></a>
+                <p class="aDescricao">{{ answer.description }}</p>
+                <p class="aData">{{ answer.created_at }}</p>
+                <a href="/delete_answer/{{ answer.id }}/"><img alt="eliminar" class="lixo" src="/static/forum/images/trash.svg"/></a>
                 <div class="votes">
-                    <img alt="votar positivamente" class="vote_button" src="/static/forum/images/up.svg"/>
-                    <p class="value">12</p>
-                    <img alt="votar negativamente" class="vote_button" src="/static/forum/images/down.svg"/>
-                    <p class="value">3</p>
+                    <a href="/{% if answer.author_in_positive_votes %}cancelvote{% else %}upvote{% endif %}/{{ answer.id }}/"><img alt="votar positivamente" class="vote_button" src="/static/forum/images/up.svg"/></a>
+                    <p class="value">{{ answer.positive_votes }}</p>
+                    <a href="/{% if answer.author_in_negative_votes %}cancelvote{% else %}downvote{% endif %}/{{ answer.id }}/"><img alt="votar negativamente" class="vote_button" src="/static/forum/images/down.svg"/></a>
+                    <p class="value">{{ answer.negative_votes }}</p>
                 </div>
             </div>
             {% endfor %}

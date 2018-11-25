@@ -1,0 +1,39 @@
+{% extends "forum/base.html" %}
+
+{% block styles %}
+    <link type="text/css" rel="stylesheet" href="/static/forum/css/my_answers.css"/>
+{% endblock %}
+
+{% block left_menu %}
+{% endblock %}
+
+{% block content %}
+    <div id="mainBox" class="row">
+        <div id="mainSpace">
+        </div>
+        <main>
+            {% for question in questions %}
+            <div class="answerBox">
+                <a href="/pergunta/{{ question.id }}/"><h3 class="qTitulo">{{ question.title }}</h3></a>
+                <p class="aDescricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at
+                    porta lacus. Suspendisse imperdiet gravida nunc vel vestibulum. Morbi id urna eleifend,
+                    viverra sem ac, tempor ante. Etiam at risus posuere, porta justo quis, venenatis dolor.
+                    Proin quam nibh, sodales sed sapien sit amet, condimentum dapibus eros. Praesent eu nulla tristique,
+                    tincidunt dui eget, lacinia purus. Pellentesque eu laoreet ex.</p>
+                <p class="aData">26 Novembro</p>
+                <img alt="eliminar" class="lixo" src="/static/forum/images/trash.svg"/>
+                <div class="votes">
+                    <img alt="votar positivamente" class="vote_button" src="/static/forum/images/up.svg"/>
+                    <p class="value">12</p>
+                    <img alt="votar negativamente" class="vote_button" src="/static/forum/images/down.svg"/>
+                    <p class="value">3</p>
+                </div>
+            </div>
+            {% endfor %}
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/static/forum/js/perguntar.js"></script>
+{% endblock %}

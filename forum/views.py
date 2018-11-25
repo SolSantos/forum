@@ -39,6 +39,12 @@ def my_questions_page(request):
         "questions": questions,
     })
 
+@login_required
+def my_answers_page(request):
+    questions = [question.as_dict() for question in Question.objects.filter(author=request.user)]
+    return render(request, "forum/minhas_respostas.html", {
+        "questions": questions,
+    })
 
 def do_login(request):
     if request.POST:

@@ -5,7 +5,6 @@
 
 #mainSpace {
     width: 25%;
-    min-width: 244px;
     height: 100vh;
     float: left;
 }
@@ -15,12 +14,16 @@ main {
     margin-bottom: 60px;
     background-color: white;
     width: 50%;
-    min-width: 290px;
+    min-width: 370px;
     height: auto;
     float: left;
     -webkit-box-shadow: 0px 0px 26px -4px rgba(0,0,0,0.6);
     -moz-box-shadow: 0px 0px 26px -4px rgba(0,0,0,0.6);
     box-shadow: 0px 0px 26px -4px rgba(0,0,0,0.6);
+}
+
+.minhas:nth-child(2) {
+    opacity: 0.65;
 }
 
 #fazerPergunta {
@@ -103,12 +106,6 @@ main {
     background-color: #5b42d4;
 }
 
-.questionBox {
-    background-color: white;
-    padding: calc(3.2% + 16px) calc(4% + 20px) calc(2% + 10px) calc(4% + 20px);
-    border-bottom: 1px solid #999999;
-}
-
 .qTitulo:hover {
     text-decoration: underline;
     color: #3e21cc;
@@ -119,40 +116,67 @@ main {
     color: #3e21cc;
     font-weight: 500;
     font-size: 144%;
+    padding-bottom: 13px;
+    border-bottom: 4px dotted #3e21cc;
+    margin-bottom: 18px;
 }
 
-.qDescricao {
+.answerBox {
+    background-color: white;
+    padding: calc(3.2% + 16px) calc(4% + 20px) calc(2% + 10px) calc(4% + 20px);
+    border-bottom: 1px solid #999999;
+    position: relative;
+}
+
+.aDescricao {
     font-weight: 500;
+    margin-top: 8px;
 }
 
-.qData {
+.aData {
     margin-top: 14px;
     text-transform: uppercase;
     color: #707070;
     font-weight: 400;
 }
 
-.qTopico {
-    margin-top: 8px;
-    background-color: #3e21cc;
-    color: white;
-    font-size: 82%;
-    width: auto;
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 4px;
+.aAutor {
+    margin-top: -6px;
 }
 
-.qSubtopico {
-    background-color: #5b42d4;
-    color: white;
-    font-size: 82%;
-    width: auto;
-    display: inline-block;
-    padding: 3px 9px;
-    border-radius: 4px;
+.votes {
+    display: inline-flex;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
+.vote_button {
+    width: 26px;
+    cursor: pointer;
+}
+
+.vote_button:hover {
+    filter: brightness(165%) saturate(60%);
+}
+
+.value {
+    color: #3e21cc;
+    font-size: 132%;
+    font-weight: 500;
+    margin: 2px 27px 0px 7px;
+}
+
+.lixo {
+    width: 40px;
+    position: absolute;
+    right: 26px;
+    bottom: 26px;
+    cursor: pointer;
+}
+
+.lixo:hover {
+    filter: brightness(165%) saturate(60%);
+}
 
 @media screen and (min-width: 1500px) {
     #mainSpace {

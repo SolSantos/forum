@@ -24,7 +24,7 @@
         <input type="text" id="barraPesquisa" name="pesquisa" placeholder="Pesquisa">
         <div id="right">
             <a href="/minhas_perguntas/" class="minhas">As minhas<br>perguntas</a>
-            <a href="" class="minhas">As minhas<br>respostas</a>
+            <a href="/minhas_respostas/" class="minhas">As minhas<br>respostas</a>
             <a href=""  id="conta"><img alt="conta" src="/static/forum/images/account_white.svg"/></a>
         </div>
     </header>
@@ -32,6 +32,7 @@
         <div id="UCLogoSpace"></div>
         <img alt="Universidade de Coimbra" id="UC" src="/static/forum/images/universidade_coimbra.svg"/>
     </section>
+    {% block left_menu %}
     <section id="menuTopicos">
         <a href="/" {% if render_state.selected_item == 0 %} id="topicoGeral" {% endif %} class="topico">Geral</a>
         <div class="separador"></div>
@@ -43,6 +44,7 @@
         <a href="/5/" {% if render_state.selected_item == 5 %} id="topicoGeral" {% endif %} class="topico">Erasmus</a>
         <a href="/6/" {% if render_state.selected_item == 6 %} id="topicoGeral" {% endif %} class="topico">AAC</a>
     </section>
+    {% endblock %}
     {% block content %}
     {% endblock %}
     

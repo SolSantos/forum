@@ -1,3 +1,18 @@
 #topicoGeral {
     background-color: #3e21cc;
 }
+
+#mainTopic {
+    margin-top: 140px;
+    margin-bottom: -10px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.hide-arrow {
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+}

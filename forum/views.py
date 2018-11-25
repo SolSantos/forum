@@ -5,10 +5,10 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 from forum.models import Question
 from forum.models import Answer
+from forum.models import Forum
 
 from forum.controller import get_questions
 from forum.controller import get_filtering_state
-
 from forum.controller import get_topics
 from forum.controller import add_question
 from forum.controller import add_answer
@@ -17,6 +17,37 @@ from forum.controller import downvote_answer as controller_downvote_answer
 from forum.controller import cancel_vote
 from forum.controller import remove_question
 from forum.controller import remove_answer
+from forum.controller import get_courses
+
+
+@login_required
+def course_welcome_page(request, filter_type=1, course_id=None, subject_id=None, search=""):
+    render_state = {
+        "selected_item": 1,
+        "filtering_state": get_filtering_state(
+            selected_menu=1,
+            user=request.user,
+            course_id=course_id,
+            subject_id=subject_id
+        )
+    }
+
+    questions = get_questions(render_state["filtering_state"], search)
+    topics = get_topics()
+    courses = get_courses()
+    subjects = [
+        forum.as_dict() for forum in Forum.objects.filter(
+            semester__course__name=render_state["filtering_state"]["topic"]
+        )
+    ]
+
+    return render(request, "forum/index.html", {
+        "questions": questions,
+        "render_state": render_state,
+        "topics": topics,
+        "courses": courses,
+        "subjects": subjects
+    })
 
 
 def welcome_page(request, filter_type=0, search=""):
@@ -28,10 +59,22 @@ def welcome_page(request, filter_type=0, search=""):
 
         questions = get_questions(render_state["filtering_state"], search)
         topics = get_topics()
+        courses = get_courses()
+
+        subjects = []
+        if render_state["selected_item"] == 1:
+            subjects = [
+                forum.as_dict() for forum in Forum.objects.filter(
+                    semester__course__name=render_state["filtering_state"]["topic"]
+                )
+            ]
+
         return render(request, "forum/index.html", {
             "questions": questions,
             "render_state": render_state,
-            "topics": topics
+            "topics": topics,
+            "courses": courses,
+            "subjects": subjects
         })
     else:
         return render(request, "forum/login.html")

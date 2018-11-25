@@ -9,12 +9,24 @@
     <div id="mainBox" class="row">
         <div id="mainSpace">
         </div>
-        <main>
-            {% if render_state.selected_item == 1 %}
-                <div>
-                    <p class="qTopico">{{render_state.filtering_state.topic}}</p><br>
-                </div>
-            {% endif %}
+        {% if render_state.selected_item == 1 %}
+            <div id="mainTopic">
+                <select id="course_select" class="qTopico perguntaInput marginInput clickable hide-arrow" required>
+                    {% for course in courses %}
+                        <option value="{{course.id}}" {% if render_state.filtering_state.topic == course.name %}selected{% endif %}>{{ course.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div id="mainSubTopic">
+                <select id="subject_select" class="qSubtopico perguntaInput marginInput clickable hide-arrow" required>
+                    <option value="" {% if not render_state.filtering_state.subtopic %}selected{% endif %} disabled>Todos as disciplinas</option>
+                    {% for subject in subjects %}
+                        <option value="{{subject.id}}" {% if render_state.filtering_state.subtopic == subject.name %}selected{% endif %}>{{ subject.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+        <main {% if render_state.selected_item == 1 %}style="margin-top: 25px;"{% endif %}>
             <div id="fazerPergunta">
                 <h3>Fazer uma pergunta</h3>
                 <img alt="fazer pergunta" id="abrirPergunta" src="/static/forum/images/more.png"/>
@@ -41,7 +53,7 @@
                 {% if render_state.selected_item != 1 %}
                     <p class="qTopico">{{ question.topic }}</p><br>
                 {% endif %}
-                {% if question.subtopic %}
+                {% if question.subtopic and not render_state.filtering_state.subtopic %}
                     <p class="qSubtopico">{{ question.subtopic }}</p>
                 {% endif %}
             </div>
@@ -51,4 +63,13 @@
 {% endblock %}
 {% block scripts %}
     <script src="/static/forum/js/perguntar.js"></script>
+    <script>
+        $("#course_select").on('change',function(){
+            location.href = "/1/" + this.value + "/";
+        });
+
+        $("#subject_select").on('change',function(){
+            location.href = "/1/" + $("#course_select").val() + "/" + this.value + "/";
+        });
+    </script>
 {% endblock %}

@@ -16,6 +16,14 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
+    def as_dict(self):
+        return {
+            "id": self.id,
+            "short_name": self.short_name,
+            "name": self.name,
+            "created_at": get_date_for_display(self.created_at)
+        }
+
     def get_tree(self):
         semesters = []
 
@@ -30,9 +38,7 @@ class Course(models.Model):
             semesters.append(current_semester)
 
         return {
-            "id": self.id,
-            "name": self.name,
-            "created_at": str(self.created_at),
+            **self.as_dict(),
             "semesters": semesters
         }
 

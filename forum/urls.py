@@ -11,6 +11,7 @@ urlpatterns = [
 	path('logout/', views.do_logout, name='logout'),
 	path('minhas_perguntas/', views.my_questions_page, name='my_questions_page'),
 	path('pergunta/<int:question_id>/', views.question_page, name='question_page'),
+	path('create_question/', views.create_question, name='create_question'),
 
 	# Api
 	path('get_courses/', api.get_courses, name='get_courses'),

@@ -6,6 +6,29 @@ from .models import Answer
 from .models import Profile
 from django.db.models import Q
 
+
+def get_topics():
+	topics = []
+	for forum in Forum.objects.filter(type="S"):
+		course_description = forum.semester.course.name
+		if forum.semester.course.short_name:
+			course_description = forum.semester.course.short_name
+
+		topics.append({
+			"id": forum.id,
+			"type": forum.type,
+			"description": course_description + " - " + forum.name
+		})
+
+	for topic in Topic.objects.filter(forum__type="O"):
+		topics.append({
+			"id": topic.id,
+			"type": topic.forum.type,
+			"description": topic.forum.name + " - " + topic.name
+		})
+
+	return topics
+
 filter_by_selected_menu = {
 	0: None,
 	1: {
@@ -100,10 +123,7 @@ def get_questions(filtering_state=None, search=""):
 	return [question.as_dict() for question in questions]
 
 
-def add_question(author, topic_id=None, forum_id=None, description=""):
-	if description == "":
-		return -1
-
+def add_question(author, topic_id=None, forum_id=None, description="", title=""):
 	if topic_id is None and forum_id is None:
 		return -1
 
@@ -114,14 +134,14 @@ def add_question(author, topic_id=None, forum_id=None, description=""):
 		except Topic.DoesNotExist as e:
 			return -2
 
-		question = Question(forum=topic.forum, topic=topic, description=description, author=author)
+		question = Question(forum=topic.forum, topic=topic, description=description, author=author, title=title)
 	elif forum_id:
 		try:
 			forum = Forum.objects.get(id=forum_id)
 		except Forum.DoesNotExist as e:
 			return -2
 
-		question = Question(forum=forum, description=description, author=author)
+		question = Question(forum=forum, description=description, author=author, title=title)
 
 	if question is None:
 		return -3

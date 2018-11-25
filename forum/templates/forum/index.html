@@ -19,10 +19,16 @@
                 <h3>Fazer uma pergunta</h3>
                 <img alt="fazer pergunta" id="abrirPergunta" src="/static/forum/images/more.png"/>
                 <div id="inputBox">
-                    <form>
-                        <input type="text" class="perguntaInput" name="pergunta" placeholder="Pergunta*">
-                        <input type="text" class="perguntaInput bigInput" name="descricao" placeholder="Descrição">
-                        <input type="text" class="perguntaInput marginInput" name="topico" placeholder="Tópico*">
+                    <form method="POST" action="/create_question/">
+                        {% csrf_token %}
+                        <input type="text" class="perguntaInput" name="title" placeholder="Pergunta*" required>
+                        <input type="text" class="perguntaInput bigInput" name="description" placeholder="Descrição">
+                        <select name="topic" class="perguntaInput marginInput" required>
+                            <option value="" selected disabled hidden>Selecionar Tópico*</option>
+                            {% for topic in topics %}
+                                <option value="{{topic.id}}|{{topic.type}}">{{topic.description}}</option>
+                            {% endfor %}
+                        </select>
                         <input id="submit" type="submit" name="perguntar" value="Perguntar">
                     </form>
                 </div>

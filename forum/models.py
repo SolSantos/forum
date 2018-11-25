@@ -10,6 +10,7 @@ from django.db.models.signals import post_save
 
 class Course(models.Model):
     name = models.CharField(unique=True, max_length=200)
+    short_name = models.CharField(max_length=15)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -124,7 +125,7 @@ class Question(models.Model):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=100, null=False, blank=False)
-    description = models.CharField(max_length=600, default="")
+    description = models.CharField(max_length=600, default="", null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
 

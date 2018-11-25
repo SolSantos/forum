@@ -13,11 +13,3 @@ $("#abrirPergunta").click(function () {
         click = 0;
     }
 });
-
-$("#submit").click(function () {
-    $("#abrirPergunta").attr("src", "/static/forum/images/more.png");
-    $("#fazerPergunta").css("height", "55px");
-    $("#inputBox").css("opacity", "0").css("visibility", "hidden");
-    click = 0;
-
-});

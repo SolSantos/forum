@@ -7,9 +7,9 @@ def get_date_for_display(date: datetime.datetime):
     is_same_year = date.year == today.year
 
     if is_same_day:
-        return str(date.hour) + "H" + str(date.minute)
+        return date.strftime("%H") + "H" + date.strftime("%M")
 
     if is_same_year:
-        return str(date.day) + " " + date.strftime("%B")
+        return date.strftime("%d") + " " + date.strftime("%B")
 
-    return date.strftime("%B") + " " + str(date.year)
+    return date.strftime("%B") + " " + date.strftime("%Y")

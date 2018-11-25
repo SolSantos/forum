@@ -9,7 +9,7 @@ urlpatterns = [
 	path('<int:filter_type>/<str:search>/', views.welcome_page, name='welcome_page'),
 	path('login/', views.do_login, name='login'),
 	path('logout/', views.do_logout, name='logout'),
-	path('see_courses/', views.see_courses, name='see_courses'),
+	path('minhas_perguntas/', views.my_questions_page, name='my_questions_page'),
 
 	# Api
 	path('get_courses/', api.get_courses, name='get_courses'),

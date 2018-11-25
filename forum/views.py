@@ -23,6 +23,13 @@ def welcome_page(request, filter_type=0, search=""):
         return render(request, "forum/login.html")
 
 
+def my_questions_page(request):
+    questions = [question.as_dict() for question in Question.objects.filter(author=request.user)]
+    return render(request, "forum/minhas_perguntas.html", {
+        "questions": questions,
+    })
+
+
 def do_login(request):
     if request.POST:
         username = request.POST['username']
@@ -38,8 +45,3 @@ def do_logout(request):
 	if request.user.is_authenticated:
 		logout(request)
 		return redirect("/")
-
-
-def see_courses(request):
-    question = Question.objects.all()
-    return render(request, "forum/see_courses.html", {"questions": question})

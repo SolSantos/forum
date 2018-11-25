@@ -1,0 +1,27 @@
+.minhas:first-child {
+    opacity: 0.65;
+}
+
+.questionBox {
+    position: relative;
+}
+
+.lixo {
+    width: 40px;
+    position: absolute;
+    right: 26px;
+    bottom: 26px;
+    cursor: pointer;
+}
+
+.lixo:hover {
+    filter: brightness(165%) saturate(60%);
+}
+
+#mainSpace {
+    min-width: 0;
+}
+
+main {
+    min-width: 370px;
+}

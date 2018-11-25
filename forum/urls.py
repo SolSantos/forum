@@ -6,6 +6,7 @@ urlpatterns = [
 	# Views
 	path('', views.welcome_page, name='welcome_page'),
 	path('<int:filter_type>/', views.welcome_page, name='welcome_page'),
+	path('<int:filter_type>/<str:search>/', views.welcome_page, name='welcome_page'),
 	path('login/', views.do_login, name='login'),
 	path('logout/', views.do_logout, name='logout'),
 	path('see_courses/', views.see_courses, name='see_courses'),

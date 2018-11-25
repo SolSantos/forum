@@ -45,7 +45,23 @@
     </section>
     {% block content %}
     {% endblock %}
+    
+    <script>
+        $("#barraPesquisa").on("keydown", function(event){
+            // enter pressed
+            if(event.keyCode == 13){
+                var search = "";
+                if(this.value != ""){
+                    search = encodeURIComponent(this.value) + "/";
+                }
+
+                location.href = "/" + "{{ render_state.selected_item }}" +  "/" + search;
+            }
+        });
+    </script>
+
     {% block scripts %}
+    
     {% endblock %}
 </body>
 </html>

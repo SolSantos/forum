@@ -139,7 +139,7 @@ class Question(models.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
-            "author": self.author.username,
+            "author": self.author.get_full_name(),
             "created_at": self.created_at,
             "date_for_display": get_date_for_display(self.created_at)
         }

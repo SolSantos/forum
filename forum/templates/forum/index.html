@@ -10,6 +10,11 @@
         <div id="mainSpace">
         </div>
         <main>
+            {% if render_state.selected_item == 1 %}
+                <div>
+                    <p class="qTopico">{{render_state.filtering_state.topic}}</p><br>
+                </div>
+            {% endif %}
             <div id="fazerPergunta">
                 <h3>Fazer uma pergunta</h3>
                 <img alt="fazer pergunta" id="abrirPergunta" src="/static/forum/images/more.png"/>
@@ -27,7 +32,9 @@
                 <h3 class="qTitulo">{{ question.title }}</h3>
                 <p class="qDescricao">{{ question.description }}</p>
                 <p class="qData">{{ question.date_for_display }}</p>
-                <p class="qTopico">{{ question.topic }}</p><br>
+                {% if render_state.selected_item != 1 %}
+                    <p class="qTopico">{{ question.topic }}</p><br>
+                {% endif %}
                 {% if question.subtopic %}
                     <p class="qSubtopico">{{ question.subtopic }}</p>
                 {% endif %}

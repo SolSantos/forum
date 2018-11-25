@@ -4,6 +4,7 @@ from .models import Question
 from .models import Topic
 from .models import Answer
 from .models import Profile
+from django.db.models import Q
 
 filter_by_selected_menu = {
 	0: None,
@@ -66,7 +67,7 @@ def get_question(question_id):
 	return Question.objects.get(id=question_id).get_tree()
 
 
-def get_questions(filtering_state=None):
+def get_questions(filtering_state=None, search=""):
 	questions = []
 
 	if filtering_state:
@@ -83,6 +84,17 @@ def get_questions(filtering_state=None):
 				)
 	else:
 		questions = Question.objects.all()
+
+	if search and search != "":
+		keywords = search.strip("?!.;").split(" ")
+		set_questions = set()
+		for word in keywords:
+			set_questions |= set(questions.filter(
+				Q(title__icontains=word) |
+				Q(description__icontains=word)
+			))
+
+		questions = set_questions
 
 	# get all questions
 	return [question.as_dict() for question in questions]

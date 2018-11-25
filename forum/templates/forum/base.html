@@ -57,7 +57,9 @@
                     search = encodeURIComponent(this.value) + "/";
                 }
 
-                location.href = "/" + "{{ render_state.selected_item }}" +  "/" + search;
+                var selected_filter = "{{ render_state.selected_item }}" || "0";
+
+                location.href = "/" + selected_filter +  "/" + search;
             }
         });
     </script>

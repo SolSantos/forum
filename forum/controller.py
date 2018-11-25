@@ -220,7 +220,6 @@ def remove_answer(author, answer_id=None):
 	return 0
 
 
-
 def cancel_vote(author, answer_id=None):
 	if answer_id is None:
 		return -1

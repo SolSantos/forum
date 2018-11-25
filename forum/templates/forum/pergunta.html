@@ -25,27 +25,27 @@
                 <h3>Escrever resposta</h3>
                 <img alt="fazer pergunta" id="abrirPergunta" src="/static/forum/images/more.png"/>
                 <div id="inputBox">
-                    <form>
-                        <textarea class="perguntaInput bigInput" name="resposta" placeholder="Resposta*"></textarea>
+                    <form method="POST" action="/answer_question/">
+                        {% csrf_token %}
+                        <input type="number" name="question_id" value="{{ question.id }}" hidden="true">
+                        <textarea class="perguntaInput bigInput" name="description" placeholder="Resposta*"></textarea>
                         <input id="submit" type="submit" name="responder" value="Responder">
                     </form>
                 </div>
             </div>
-            <div class="answerBox">
-                <p class="aDescricao">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at
-                    porta lacus. Suspendisse imperdiet gravida nunc vel vestibulum. Morbi id urna eleifend,
-                    viverra sem ac, tempor ante. Etiam at risus posuere, porta justo quis, venenatis dolor.
-                    Proin quam nibh, sodales sed sapien sit amet, condimentum dapibus eros. Praesent eu nulla tristique,
-                    tincidunt dui eget, lacinia purus. Pellentesque eu laoreet ex. </p>
-                <p class="aData">26 NOVEMBRO</p>
-                <p class="aAutor">Margarida Margarido</p>
-                <div class="votes">
-                    <img alt="votar positivamente" class="vote_button" src="/static/forum/images/up.svg"/>
-                    <p class="value">12</p>
-                    <img alt="votar negativamente" class="vote_button" src="/static/forum/images/down.svg"/>
-                    <p class="value">3</p>
+            {% for answer in answers %}
+                <div class="answerBox">
+                    <p class="aDescricao">{{ answer.description }}</p>
+                    <p class="aData">{{ answer.created_at }}</p>
+                    <p class="aAutor">{{ answer.author }}</p>
+                    <div class="votes">
+                        <a href="/{% if answer.author_in_positive_votes %}cancelvote{% else %}upvote{% endif %}/{{ answer.id }}/"><img alt="votar positivamente" class="vote_button" src="/static/forum/images/up.svg"/></a>
+                        <p class="value">{{ answer.positive_votes }}</p>
+                        <a href="/{% if answer.author_in_negative_votes %}cancelvote{% else %}downvote{% endif %}/{{ answer.id }}/"><img alt="votar negativamente" class="vote_button" src="/static/forum/images/down.svg"/></a>
+                        <p class="value">{{ answer.negative_votes }}</p>
+                    </div>
                 </div>
-            </div>
+            {% endfor %}
         </main>
     </div>
 {% endblock %}

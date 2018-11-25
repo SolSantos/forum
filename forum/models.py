@@ -178,14 +178,18 @@ class Answer(models.Model):
     def __str__(self):
         return self.description
 
-    def get_total_votes(self):
-        return self.positive_votes.all().count() - self.negative_votes.all().count()
-
-    def as_dict(self):
-        return {
+    def as_dict(self, author=None):
+        answer_dict = {
             "id": self.id,
             "description": self.description,
-            "author": self.author.username,
-            "created_at": str(self.created_at),
-            "votes": self.get_total_votes()
+            "author": self.author.get_full_name(),
+            "created_at": get_date_for_display(self.created_at),
+            "positive_votes": self.positive_votes.all().count(),
+            "negative_votes": self.negative_votes.all().count(),
         }
+
+        if author:
+            answer_dict["author_in_positive_votes"] = author in self.positive_votes.all()
+            answer_dict["author_in_negative_votes"] = author in self.negative_votes.all()
+
+        return answer_dict

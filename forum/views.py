@@ -4,14 +4,18 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 from forum.models import Question
+from forum.models import Answer
+
 from forum.controller import get_questions
 from forum.controller import get_filtering_state
 
 from forum.controller import get_topics
 from forum.controller import add_question
-
-from forum.models import Forum
-from forum.models import Topic
+from forum.controller import add_answer
+from forum.controller import upvote_answer as controller_upvote_answer
+from forum.controller import downvote_answer as controller_downvote_answer
+from forum.controller import cancel_vote
+from forum.controller import remove_question
 
 
 def welcome_page(request, filter_type=0, search=""):
@@ -39,12 +43,14 @@ def my_questions_page(request):
         "questions": questions,
     })
 
+
 @login_required
 def my_answers_page(request):
     questions = [question.as_dict() for question in Question.objects.filter(author=request.user)]
     return render(request, "forum/minhas_respostas.html", {
         "questions": questions,
     })
+
 
 def do_login(request):
     if request.POST:
@@ -58,15 +64,17 @@ def do_login(request):
 
 
 def do_logout(request):
-	if request.user.is_authenticated:
-		logout(request)
-		return redirect("/")
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect("/")
 
 
 def question_page(request, question_id):
-    question = Question.objects.get(id=question_id).as_dict()
+    question = Question.objects.get(id=question_id)
+    answers = [answer.as_dict(author=request.user) for answer in question.answer_set.all()]
     return render(request, "forum/pergunta.html", {
-        "question": question,
+        "question": question.as_dict(),
+        "answers": answers
     })
 
 
@@ -78,7 +86,7 @@ def create_question(request):
         topic = request.POST.get("topic")
 
         topic_tokens = topic.split("|")
-        forum_id = None 
+        forum_id = None
         topic_id = None
         if topic_tokens[1] == "S":
             forum_id = topic_tokens[0]
@@ -97,3 +105,55 @@ def create_question(request):
     else:
         return redirect("/")
 
+
+@login_required
+def answer_question(request):
+    if request.POST:
+        question_id = request.POST.get("question_id", "")
+        description = request.POST.get("description", "")
+
+        answer_id = add_answer(
+            author=request.user,
+            question_id=question_id,
+            description=description
+        )
+
+        return redirect("/pergunta/" + str(question_id) + "/")
+    else:
+        return redirect("/")
+
+
+vote_action_strategy = {
+    "upvote": controller_upvote_answer,
+    "downvote": controller_downvote_answer,
+    "cancel": cancel_vote
+}
+
+
+def __apply_vote_answer_action(action, author, answer_id):
+    vote_action_strategy[action](
+        author=author,
+        answer_id=answer_id
+    )
+    answer = Answer.objects.get(id=answer_id)
+    return redirect("/pergunta/" + str(answer.question.id) + "/")
+
+
+@login_required
+def upvote_answer(request, answer_id):
+    return __apply_vote_answer_action("upvote", request.user, answer_id)
+
+
+@login_required
+def downvote_answer(request, answer_id):
+    return __apply_vote_answer_action("downvote", request.user, answer_id)
+
+
+@login_required
+def cancel_vote_answer(request, answer_id):
+    return __apply_vote_answer_action("cancel", request.user, answer_id)
+
+
+@login_required
+def delete_question(request, question_id):
+    remove_question(author=request.user, question_id=question_id)

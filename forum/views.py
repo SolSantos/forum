@@ -124,6 +124,12 @@ def do_logout(request):
 def question_page(request, question_id):
     question = Question.objects.get(id=question_id)
     answers = [answer.as_dict(author=request.user) for answer in question.answer_set.all()]
+    answers = sorted(
+        answers,
+        key=lambda answer: answer["positive_votes"] - answer["negative_votes"],
+        reverse=True
+    )
+
     return render(request, "forum/pergunta.html", {
         "question": question.as_dict(),
         "answers": answers

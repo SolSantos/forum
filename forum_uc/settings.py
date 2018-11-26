@@ -122,3 +122,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 locale.setlocale(locale.LC_TIME, "Portuguese")
+
+STATIC_ROOT = "static/"

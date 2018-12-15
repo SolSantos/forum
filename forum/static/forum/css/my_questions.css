@@ -25,3 +25,55 @@
 main {
     min-width: 370px;
 }
+
+#confirm {
+    z-index: 4;
+    width: 50%;
+    min-width: 370px;
+    position: absolute;
+    margin-top: 20vh;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.6s, visibility 0.6s;
+    transition: opacity 0.6s, visibility 0.6s;
+}
+
+#confirmBox {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #3e21cc;
+    padding: calc(3.5% + 10px) calc(3% + 7px);
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.7);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.7);
+}
+
+#confirmBox p {
+    color: white;
+    font-weight: 500;
+}
+
+#options {
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#optionsBox {
+    display: inline-flex;
+}
+
+.option {
+    background-color: #5b42d4;
+    border-radius: 50px;
+    padding: 7px 35px;
+    color: white;
+    font-weight: 600;
+    margin: 9px 7px 3px 7px;
+}
+
+.option:hover {
+    cursor: pointer;
+    background-color: #7869e5;
+}

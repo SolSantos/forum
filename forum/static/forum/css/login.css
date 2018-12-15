@@ -29,7 +29,7 @@ body {
 #apresentacao h1{
     text-transform: uppercase;
     font-weight: 800;
-    font-size: 340%;
+    font-size: 335%;
     color: white;
 }
 
@@ -39,7 +39,7 @@ body {
 
 #apresentacao h2 {
     color: white;
-    font-size: 135%;
+    font-size: 125%;
     font-weight: 500;
     margin-top: calc(2.6vh + 10px);
 }
@@ -51,7 +51,7 @@ body {
 }
 
 #logoSpace {
-    margin-top: calc(10vh + 26px);
+    margin-top: calc(11vh + 28px);
 }
 
 #qmBox {
@@ -61,28 +61,29 @@ body {
 }
 
 #qm {
-    width: 22vw;
+    width: 6.5vw;
     opacity: 0.6;
 }
 
 
 #logo {
-    width: 14vw;
+    width: 13.8vw;
     opacity: 0.6;
     display: table;
     margin-right: auto;
     margin-left: auto;
-    margin-top: calc(1vh + 10px);
+    margin-top: calc(2.2vh + 12px);
 }
 
 #loginBox {
     background-color: white;
-    padding: calc(3vh + 8px) calc(5% + 20px) 6.6vh calc(5% + 20px);
+    padding: calc(3.5vh + 8px) calc(5% + 20px) 7.5vh calc(5% + 20px);
     -webkit-box-shadow: 0px 3px 11px -2px rgba(0,0,0,0.4);
     -moz-box-shadow: 0px 3px 11px -2px rgba(0,0,0,0.4);
     box-shadow: 0px 3px 11px -2px rgba(0,0,0,0.4);
     z-index: 2;
     margin-top: calc(8.5vh + 8px);
+    margin-bottom: calc(5.5vh + 6px);
 }
 
 .loginInput {

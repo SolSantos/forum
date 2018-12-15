@@ -39,9 +39,9 @@ header a {
 }
 
 #home {
-    width: 76px;
-    min-width: 76px;
-    margin: 13px 30px;
+    width: 62px;
+    min-width: 62px;
+    margin: 20px 33px;
 }
 
 #barraPesquisa{
@@ -83,8 +83,8 @@ header a:hover {
 }
 
 #conta {
-    width: 48px;
-    margin: 18px 30px 18px 1.6vw;
+    width: 44px;
+    margin: 19px 30px 19px 1.6vw;
 }
 /*fim header*/
 
@@ -134,13 +134,15 @@ header a:hover {
 }
 
 #UCLogoSpace {
-    height: calc(93vh - 38px);
+    height: calc(93.5vh - 38px);
     min-height: 536px;
 }
 
 #UC {
-    width: calc(100% - 100px);
-    margin: 30px 50px 4px 50px;
+    width: calc(100% - 140px);
+    margin: 30px auto 4px auto;
+    display: table;
+    min-width: 135px;
 }
 /*fim menu esquerdo*/
 

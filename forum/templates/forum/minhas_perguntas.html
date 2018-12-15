@@ -13,12 +13,24 @@
         <div id="mainSpace">
         </div>
         <main>
+             <section id="confirm">
+                <div id="confirmBox">
+                    <p>De certeza que queres eliminar?</p>
+                    <div id="options">
+                        <div id="optionsBox">
+                            <div id="yes_button" class="option">SIM</div>
+                            <div id="no_button" class="option">NÃO</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
             {% for question in questions %}
             <div class="questionBox">
                 <a href="/pergunta/{{ question.id }}/"><h3 class="qTitulo">{{ question.title }}</h3></a>
                 <p class="qDescricao">{{ question.description }}</p>
                 <p class="qData">{{ question.date_for_display }}</p>
-                <a href="/delete_question/{{ question.id }}/"><img alt="eliminar" class="lixo" src="/static/forum/images/trash.svg"/></a>
+                <!--"/delete_question/{{ question.id }}/"-->
+                <img id="delete_{{ question.id }}" alt="eliminar" class="lixo" src="/static/forum/images/trash.svg"/>
                 <p class="qTopico">{{ question.topic }}</p><br>
                 {% if question.subtopic %}
                     <p class="qSubtopico">{{ question.subtopic }}</p>
@@ -26,9 +38,8 @@
             </div>
             {% endfor %}
         </main>
-    </div>
 {% endblock %}
 
 {% block scripts %}
-    <script src="/static/forum/js/perguntar.js"></script>
+    <script src="/static/forum/js/eliminar_pergunta.js"></script>
 {% endblock %}
